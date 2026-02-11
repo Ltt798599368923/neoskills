@@ -1,8 +1,8 @@
-# neoskills v0.3.0 — Specification
+# neoskills v0.3.1 — Specification
 
 **Homebrew-Style Skill Manager for AI Coding Agents**
 
-**Version:** v0.3.0
+**Version:** v0.3.1
 
 **Author:** Richard Tong
 
@@ -359,11 +359,13 @@ Dataclass representing a skill's metadata, parsed from SKILL.md frontmatter.
 
 ```
 1. Check for changes in default tap repo (git status)
-2. Stage skills/, plugins/, tap.yaml, README.md
+2. Stage existing paths only (skills/, plugins/, tap.yaml, README.md — skips missing)
 3. Commit with message (default or -m flag)
 4. Push to origin
 5. Report success or "committed locally" if push fails
 ```
+
+> **v0.3.1 fix:** The push command now gracefully skips non-existent paths (e.g. `plugins/`) instead of crashing with `fatal: pathspec did not match`.
 
 ---
 
@@ -393,7 +395,22 @@ The `neoskills migrate` command performs a one-time conversion:
 
 - 100 skills migrated, 0 skipped
 - 100 symlinks created, all healthy
-- 4 skills with missing descriptions (cosmetic warnings)
+- 4 skills initially had missing descriptions (fixed in v0.3.1)
+
+### Post-migration frontmatter fixes (v0.3.1)
+
+Four skills had malformed YAML frontmatter after migration:
+
+| Skill | Issue | Fix |
+|-------|-------|-----|
+| `canvas` | Missing `name` and `description` entirely | Added fields to frontmatter |
+| `discord` | Dual frontmatter blocks (parser only reads first) | Merged into single block |
+| `food-order` | Dual frontmatter blocks + unquoted colons in description | Merged blocks, quoted description |
+| `paper-draft-stitcher` | Dual frontmatter blocks + unquoted colons in description | Merged blocks, quoted description |
+
+**Root cause:** Some skills had two `---` YAML blocks. The `parse_frontmatter()` function finds the first closing `---` delimiter, so only the first block was parsed. The first block contained `version`/`author`/`tags` but not `name`/`description`. Additionally, descriptions containing colons (e.g. `discord tool: send messages`) caused `yaml.ScannerError` because YAML interprets unquoted colons as key-value separators. The error was silently caught, returning empty metadata.
+
+**Lesson:** Always quote YAML string values that contain colons.
 
 ---
 
@@ -438,7 +455,7 @@ The `neoskills migrate` command performs a one-time conversion:
 
 ### Test suite
 
-- **80 tests** total (79 unit + 1 integration)
+- **79 tests** total (78 unit + 1 integration)
 - **test_linker.py** — 17 tests: link, unlink, link_all, unlink_all, list_links, check_health
 - **test_tap.py** — 13 tests: list_taps, list_skills, get_skill_path, search, remove
 - **test_core.py** — 18 tests: frontmatter, checksum, config, cellar, skillspec
@@ -521,7 +538,25 @@ Plugins follow the same model:
 
 ---
 
-## 16. Quick Reference Card
+## 16. Changelog
+
+### v0.3.1
+
+- **Fix:** `neoskills push` no longer crashes when `plugins/` directory doesn't exist in a tap. Skips non-existent paths gracefully.
+- **Fix:** Repaired 4 skills with missing descriptions caused by dual YAML frontmatter blocks and unquoted colons in description values.
+
+### v0.3.0
+
+- **Major refactor:** Replaced deep `LTM/bank/skills/{id}/canonical/` hierarchy with Homebrew-inspired tap/cellar/link model.
+- **New core classes:** `Cellar`, `TapManager`, `Linker`, `SkillSpec` replace `SkillStore`, `Registry`, `SymlinkResolver`, `TargetManager`.
+- **New CLI commands:** `tap`, `untap`, `update`, `install`, `uninstall`, `link`, `unlink`, `upgrade`, `list`, `search`, `info`, `doctor`, `create`, `push`, `migrate`.
+- **Removed:** `bank/`, `mappings/`, `bundles/`, `capabilities/` modules and 7 old CLI commands.
+- **Net -812 lines** of code (simpler overall).
+- **Migration:** `neoskills migrate` converts v0.2 structure to v0.3 in-place.
+
+---
+
+## 17. Quick Reference Card
 
 ```bash
 # Setup
