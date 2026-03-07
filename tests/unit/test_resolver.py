@@ -1,14 +1,12 @@
 """Tests for Resolver — dependency resolution engine."""
 
-from pathlib import Path
-
 import pytest
 import yaml
 
 from neoskills.core.cellar import Cellar
 from neoskills.core.index import SkillIndex
 from neoskills.core.linker import Linker
-from neoskills.core.resolver import CyclicDependencyError, DepIssue, Resolver, ResolveResult
+from neoskills.core.resolver import CyclicDependencyError, Resolver, ResolveResult
 from neoskills.core.tap import TapManager
 
 
