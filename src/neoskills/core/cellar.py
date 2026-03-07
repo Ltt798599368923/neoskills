@@ -8,7 +8,7 @@ import yaml
 
 # Default config for a fresh workspace
 _DEFAULT_CONFIG: dict[str, Any] = {
-    "version": "0.3.1",
+    "version": "0.4.0",
     "default_tap": "mySkills",
     "default_target": "claude-code",
     "targets": {

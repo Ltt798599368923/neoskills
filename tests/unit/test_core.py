@@ -100,7 +100,7 @@ class TestCellar:
         cellar = Cellar(tmp_path / ".neoskills")
         cellar.initialize()
         config = cellar.load_config()
-        assert config["version"] == "0.3.1"
+        assert config["version"] == "0.4.0"
         assert config["default_tap"] == "mySkills"
 
         config["default_target"] = "opencode"

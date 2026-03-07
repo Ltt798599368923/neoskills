@@ -92,7 +92,7 @@ class TestInitValidation:
         cellar.initialize()
         assert cellar.config_file.exists()
         config = cellar.load_config()
-        assert config["version"] == "0.3.1"
+        assert config["version"] == "0.4.0"
 
     def test_cellar_init_is_idempotent(self, tmp_path: Path):
         """Re-initializing should not overwrite existing config."""
