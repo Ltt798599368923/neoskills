@@ -37,5 +37,17 @@ def create(skill_id: str, description: str, author: str, tags: str, root: str | 
     body = f"# {skill_id.replace('-', ' ').title()}\n\nTODO: Add skill content here.\n"
     (skill_dir / "SKILL.md").write_text(write_frontmatter(fm, body))
 
+    import yaml
+    metadata = {
+        "type": "regular",
+        "depends_on": {
+            "skills": [],
+            "tools": [],
+            "agent": None,
+            "packages": [],
+        },
+    }
+    (skill_dir / "metadata.yaml").write_text(yaml.dump(metadata, default_flow_style=False))
+
     click.echo(f"Created {skill_id} at {skill_dir}")
     click.echo(f"  Edit: {skill_dir / 'SKILL.md'}")
