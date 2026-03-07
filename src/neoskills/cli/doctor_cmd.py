@@ -73,6 +73,21 @@ def doctor(target: str | None, root: str | None) -> None:
         if unlinked:
             click.echo(f"  Unlinked skills in {default_tap}: {len(unlinked)}")
 
+    # 6. Check dependency health
+    from neoskills.core.index import SkillIndex
+    from neoskills.core.resolver import Resolver
+
+    index = SkillIndex(cellar, mgr)
+    resolver = Resolver(index, linker)
+    dep_issues = resolver.check_all(target)
+    if dep_issues:
+        click.echo(f"  Dependency issues ({len(dep_issues)}):")
+        for issue in dep_issues[:10]:
+            click.echo(f"    - [{issue.kind}] {issue.skill_id}: {issue.detail}")
+        if len(dep_issues) > 10:
+            click.echo(f"    ... and {len(dep_issues) - 10} more")
+        issues += len(dep_issues)
+
     # Summary
     if issues == 0:
         click.echo("System is healthy.")
