@@ -342,8 +342,9 @@ class OntologyLoader:
         extra_source_trees: list[dict[str, Any]] | None = None,
         local_plugins_root: Path | None = None,
         remote_plugins_root: Path | None = None,
+        skip_defaults: bool = False,
     ) -> None:
-        self.source_trees = default_source_trees()
+        self.source_trees = [] if skip_defaults else default_source_trees()
         if local_plugins_root or remote_plugins_root:
             self.source_trees.extend(
                 discover_plugin_trees(local_plugins_root, remote_plugins_root)

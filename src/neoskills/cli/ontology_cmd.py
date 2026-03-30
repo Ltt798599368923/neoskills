@@ -15,7 +15,6 @@ from pathlib import Path
 import click
 
 from neoskills.ontology.engine import OntologyEngine
-from neoskills.ontology.models import EnrichmentLevel
 
 
 def _build_engine(ctx: click.Context) -> OntologyEngine:

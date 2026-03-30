@@ -68,7 +68,7 @@ def doctor(target: str | None, root: str | None) -> None:
     if default_tap in taps:
         skills = mgr.list_skills(default_tap)
         links = linker.list_links(target)
-        linked_ids = {l["skill_id"] for l in links}
+        linked_ids = {lnk["skill_id"] for lnk in links}
         unlinked = [s for s in skills if s["skill_id"] not in linked_ids]
         if unlinked:
             click.echo(f"  Unlinked skills in {default_tap}: {len(unlinked)}")

@@ -125,10 +125,10 @@ class Linker:
     def check_health(self, target: str | None = None) -> dict:
         """Check symlink health. Returns dict with issues."""
         links = self.list_links(target)
-        broken = [l for l in links if l["broken"]]
-        unmanaged = [l for l in links if not l["managed"] and l["linked"]]
-        healthy = [l for l in links if l["linked"] and not l["broken"] and l["managed"]]
-        local = [l for l in links if not l["linked"]]
+        broken = [lnk for lnk in links if lnk["broken"]]
+        unmanaged = [lnk for lnk in links if not lnk["managed"] and lnk["linked"]]
+        healthy = [lnk for lnk in links if lnk["linked"] and not lnk["broken"] and lnk["managed"]]
+        local = [lnk for lnk in links if not lnk["linked"]]
 
         return {
             "total": len(links),

@@ -74,8 +74,8 @@ def neoskills_scan(target: str | None = None) -> dict:
         "target": target or cellar.load_config().get("default_target", "claude-code"),
         "count": len(links),
         "skills": [
-            {"id": l["skill_id"], "is_symlink": l["is_symlink"], "source": l.get("source", "")}
-            for l in links
+            {"id": lnk["skill_id"], "is_symlink": lnk["is_symlink"], "source": lnk.get("source", "")}
+            for lnk in links
         ],
     }
 

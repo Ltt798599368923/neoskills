@@ -21,7 +21,6 @@ from neoskills.ontology.lifecycle import (
 )
 from neoskills.ontology.versioning import VersionError, bump_version
 from neoskills.ontology.composition import (
-    CompositionError,
     compose,
     compose_edges,
     decompose_plan,
@@ -30,10 +29,9 @@ from neoskills.ontology.export import to_ascii_tree, to_dot, to_json, to_mermaid
 from neoskills.ontology.models import (
     EdgeType,
     EnrichmentLevel,
-    LifecycleState,
     OntologyEdge,
     SkillNode,
-    SkillType,
+    SkillSubstrate,
     SubGraph,
     ValidationResult,
 )
@@ -82,7 +80,7 @@ class OntologyEngine:
             {"root": d.parent, "pattern": d.name, "namespace": "", "source_type": "local"}
             for d in skill_dirs
         ]
-        loader = OntologyLoader(extra_source_trees=trees)
+        loader = OntologyLoader(extra_source_trees=trees, skip_defaults=True)
         graph = loader.load()
         return cls(graph)
 

@@ -94,7 +94,7 @@ def migrate(root: str | None, tap_name: str, dry_run: bool) -> None:
     click.echo(f"Found {len(old_skills)} skills in v0.2 bank")
 
     if dry_run:
-        click.echo(f"\n--- DRY RUN (no changes will be made) ---\n")
+        click.echo("\n--- DRY RUN (no changes will be made) ---\n")
 
     # Step 1: Create new directory structure
     taps_dir = old_root / "taps"
@@ -153,7 +153,7 @@ def migrate(root: str | None, tap_name: str, dry_run: bool) -> None:
         click.echo(f"Linked {linked} skills to {cellar.target_path()}")
 
     if dry_run:
-        click.echo(f"\nRun without --dry-run to execute migration.")
+        click.echo("\nRun without --dry-run to execute migration.")
     else:
         click.echo(f"\nMigration complete. Old structure at {old_bank} can be archived.")
         click.echo("Run 'neoskills doctor' to verify health.")

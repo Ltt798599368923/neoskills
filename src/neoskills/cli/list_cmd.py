@@ -42,13 +42,13 @@ def list_skills(
 
     if linked:
         links = linker.list_links(target)
-        managed = [l for l in links if l["managed"]]
+        managed = [lnk for lnk in links if lnk["managed"]]
         click.echo(f"Linked skills ({len(managed)} managed):")
-        for l in links:
-            status = "→" if l["linked"] else " "
-            flag = " [broken]" if l["broken"] else ""
-            flag += " [unmanaged]" if l["linked"] and not l["managed"] else ""
-            click.echo(f"  {status} {l['skill_id']}{flag}")
+        for lnk in links:
+            status = "→" if lnk["linked"] else " "
+            flag = " [broken]" if lnk["broken"] else ""
+            flag += " [unmanaged]" if lnk["linked"] and not lnk["managed"] else ""
+            click.echo(f"  {status} {lnk['skill_id']}{flag}")
         return
 
     if available or tap_name:
@@ -63,7 +63,7 @@ def list_skills(
     tap = tap_name or cellar.default_tap
     skills = mgr.list_skills(tap)
     links = linker.list_links(target)
-    linked_ids = {l["skill_id"] for l in links if l["linked"]}
+    linked_ids = {lnk["skill_id"] for lnk in links if lnk["linked"]}
 
     click.echo(f"Skills in {tap} ({len(skills)} total, {len(linked_ids)} linked):")
     for s in skills:
@@ -112,7 +112,7 @@ def info(skill_id: str, root: str | None) -> None:
 
     # Check link status
     links = linker.list_links()
-    link_info = next((l for l in links if l["skill_id"] == skill_id), None)
+    link_info = next((lnk for lnk in links if lnk["skill_id"] == skill_id), None)
 
     click.echo(f"Name:        {spec.name}")
     click.echo(f"Description: {spec.description}")

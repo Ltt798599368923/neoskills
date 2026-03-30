@@ -23,7 +23,7 @@ def to_mermaid(
         edges = graph_or_subgraph.edges
         center = ""
 
-    lines = [f"---", f"title: {title}", f"---", "graph LR"]
+    lines = ["---", f"title: {title}", "---", "graph LR"]
 
     # Sanitize ID for Mermaid (replace hyphens, slashes)
     def mid(s: str) -> str:
