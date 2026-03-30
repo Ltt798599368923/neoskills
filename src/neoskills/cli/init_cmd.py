@@ -51,7 +51,5 @@ def init(root: str | None) -> None:
     console.print()
     console.print("[bold green]neoskills workspace initialized![/bold green]")
     console.print(tree)
-    console.print(
-        f"\n[dim]Total: {len(dirs_created)} dirs, {len(files_created)} files[/dim]"
-    )
+    console.print(f"\n[dim]Total: {len(dirs_created)} dirs, {len(files_created)} files[/dim]")
     console.print("\n[dim]Next: run 'neoskills tap <url>' to add a skill tap.[/dim]")

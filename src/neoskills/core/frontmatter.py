@@ -27,7 +27,7 @@ def parse_frontmatter(content: str) -> tuple[dict[str, Any], str]:
         return {}, content
 
     frontmatter_str = "\n".join(lines[1:end_line]).strip()
-    body = "\n".join(lines[end_line + 1:]).strip()
+    body = "\n".join(lines[end_line + 1 :]).strip()
 
     try:
         metadata = yaml.safe_load(frontmatter_str) or {}

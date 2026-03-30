@@ -68,7 +68,9 @@ def load_graph(ctx: click.Context) -> None:
     engine = _build_engine(ctx)
     s = engine.stats()
 
-    click.echo(f"Ontology loaded: {s['total_nodes']} skills, {s['total_edges']} edges, {s['total_domains']} domains\n")
+    click.echo(
+        f"Ontology loaded: {s['total_nodes']} skills, {s['total_edges']} edges, {s['total_domains']} domains\n"
+    )
 
     if s["by_type"]:
         click.echo("By type:")
@@ -265,7 +267,9 @@ def conflicts(ctx: click.Context) -> None:
 @ontology.command("graph")
 @click.argument("skill_id")
 @click.option("--depth", "-d", default=1, help="Neighborhood depth (default: 1)")
-@click.option("--format", "-f", "fmt", type=click.Choice(["mermaid", "dot", "json"]), default="mermaid")
+@click.option(
+    "--format", "-f", "fmt", type=click.Choice(["mermaid", "dot", "json"]), default="mermaid"
+)
 @click.pass_context
 def graph_cmd(ctx: click.Context, skill_id: str, depth: int, fmt: str) -> None:
     """Show the neighborhood graph of a skill."""
@@ -324,10 +328,7 @@ def transition_cmd(ctx: click.Context, skill_id: str, to_state: str, reason: str
     engine = _build_engine(ctx)
     try:
         result = engine.transition(skill_id, to_state, reason)
-        click.echo(
-            f"Transitioned {result['skill_id']}: "
-            f"{result['from']} → {result['to']}"
-        )
+        click.echo(f"Transitioned {result['skill_id']}: {result['from']} → {result['to']}")
         if result["reason"]:
             click.echo(f"  Reason: {result['reason']}")
     except Exception as e:
@@ -344,8 +345,13 @@ def transition_cmd(ctx: click.Context, skill_id: str, to_state: str, reason: str
 @click.argument("source")
 @click.argument("target")
 @click.option(
-    "--type", "-t", "edge_type", required=True,
-    type=click.Choice(["requires", "extends", "composes_with", "conflicts_with", "supersedes", "derived_from"]),
+    "--type",
+    "-t",
+    "edge_type",
+    required=True,
+    type=click.Choice(
+        ["requires", "extends", "composes_with", "conflicts_with", "supersedes", "derived_from"]
+    ),
     help="Edge type",
 )
 @click.pass_context
@@ -364,8 +370,13 @@ def add_edge_cmd(ctx: click.Context, source: str, target: str, edge_type: str) -
 @click.argument("source")
 @click.argument("target")
 @click.option(
-    "--type", "-t", "edge_type", required=True,
-    type=click.Choice(["requires", "extends", "composes_with", "conflicts_with", "supersedes", "derived_from"]),
+    "--type",
+    "-t",
+    "edge_type",
+    required=True,
+    type=click.Choice(
+        ["requires", "extends", "composes_with", "conflicts_with", "supersedes", "derived_from"]
+    ),
 )
 @click.pass_context
 def remove_edge_cmd(ctx: click.Context, source: str, target: str, edge_type: str) -> None:
@@ -407,7 +418,9 @@ def version_cmd(ctx: click.Context, skill_id: str, bump: str) -> None:
 
 @ontology.command("compose")
 @click.argument("skill_ids", nargs=-1, required=True)
-@click.option("--mode", "-m", type=click.Choice(["pipeline", "ensemble", "selector"]), default="pipeline")
+@click.option(
+    "--mode", "-m", type=click.Choice(["pipeline", "ensemble", "selector"]), default="pipeline"
+)
 @click.option("--name", "-n", default="", help="Name for the composite skill")
 @click.option("--output-dir", "-o", type=click.Path(), default=None, help="Output directory")
 @click.pass_context
@@ -494,8 +507,12 @@ def enrich_cmd(
 
 
 @ontology.command("export")
-@click.option("--format", "-f", "fmt", type=click.Choice(["mermaid", "dot", "json"]), default="json")
-@click.option("--output", "-o", type=click.Path(), default=None, help="Output file (default: stdout)")
+@click.option(
+    "--format", "-f", "fmt", type=click.Choice(["mermaid", "dot", "json"]), default="json"
+)
+@click.option(
+    "--output", "-o", type=click.Path(), default=None, help="Output file (default: stdout)"
+)
 @click.pass_context
 def export_cmd(ctx: click.Context, fmt: str, output: str | None) -> None:
     """Export the full graph."""

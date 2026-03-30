@@ -105,21 +105,25 @@ class Linker:
                 resolved = item.resolve()
                 managed = resolved.is_relative_to(self.cellar.taps_dir)
                 broken = not resolved.exists()
-                results.append({
-                    "skill_id": item.name,
-                    "linked": True,
-                    "managed": managed,
-                    "broken": broken,
-                    "source": str(resolved),
-                })
+                results.append(
+                    {
+                        "skill_id": item.name,
+                        "linked": True,
+                        "managed": managed,
+                        "broken": broken,
+                        "source": str(resolved),
+                    }
+                )
             elif item.is_dir() and (item / "SKILL.md").exists():
-                results.append({
-                    "skill_id": item.name,
-                    "linked": False,
-                    "managed": False,
-                    "broken": False,
-                    "source": str(item),
-                })
+                results.append(
+                    {
+                        "skill_id": item.name,
+                        "linked": False,
+                        "managed": False,
+                        "broken": False,
+                        "source": str(item),
+                    }
+                )
         return results
 
     def check_health(self, target: str | None = None) -> dict:

@@ -86,7 +86,7 @@ def to_dot(
         nodes = graph_or_subgraph.nodes
         edges = graph_or_subgraph.edges
 
-    lines = [f'digraph "{title}" {{', '    rankdir=LR;', '    node [shape=box, style=rounded];']
+    lines = [f'digraph "{title}" {{', "    rankdir=LR;", "    node [shape=box, style=rounded];"]
 
     # Type → shape mapping
     shape_map = {
@@ -105,12 +105,12 @@ def to_dot(
 
     # Edge style mapping
     edge_attrs = {
-        "requires": 'style=solid, color=red',
-        "extends": 'style=dashed, color=blue',
-        "composes_with": 'style=bold, color=green',
-        "conflicts_with": 'style=dotted, color=orange, dir=both',
-        "supersedes": 'style=solid, color=gray',
-        "derived_from": 'style=dashed, color=gray',
+        "requires": "style=solid, color=red",
+        "extends": "style=dashed, color=blue",
+        "composes_with": "style=bold, color=green",
+        "conflicts_with": "style=dotted, color=orange, dir=both",
+        "supersedes": "style=solid, color=gray",
+        "derived_from": "style=dashed, color=gray",
     }
 
     for edge in edges:
@@ -165,7 +165,11 @@ def to_json(graph: SkillGraph) -> str:
 
 
 def to_ascii_tree(
-    graph: SkillGraph, skill_id: str, edge_type: str = "requires", direction: str = "forward", depth: int = 3
+    graph: SkillGraph,
+    skill_id: str,
+    edge_type: str = "requires",
+    direction: str = "forward",
+    depth: int = 3,
 ) -> str:
     """Render a dependency tree as ASCII art."""
     from neoskills.ontology.models import EdgeType
@@ -177,7 +181,9 @@ def to_ascii_tree(
 
     lines: list[str] = []
 
-    def _render(sid: str, prefix: str, is_last: bool, visited: set[str], current_depth: int) -> None:
+    def _render(
+        sid: str, prefix: str, is_last: bool, visited: set[str], current_depth: int
+    ) -> None:
         if current_depth > depth:
             return
 

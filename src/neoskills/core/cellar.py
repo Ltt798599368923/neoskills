@@ -107,9 +107,7 @@ class Cellar:
             created_files.append(self.config_file)
 
         if not self.gitignore_file.exists():
-            self.gitignore_file.write_text(
-                "# Ephemeral\ncache/\n\n# Secrets\n.env\n"
-            )
+            self.gitignore_file.write_text("# Ephemeral\ncache/\n\n# Secrets\n.env\n")
             created_files.append(self.gitignore_file)
 
         return {"directories": created_dirs, "files": created_files}

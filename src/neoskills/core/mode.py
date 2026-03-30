@@ -5,7 +5,7 @@ from enum import Enum
 
 
 class ExecutionMode(Enum):
-    AGENT = "agent"    # Mode A: neoskills as top-level agent
+    AGENT = "agent"  # Mode A: neoskills as top-level agent
     PLUGIN = "plugin"  # Mode B: neoskills embedded in a host agent
 
 

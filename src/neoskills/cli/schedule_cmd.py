@@ -128,11 +128,20 @@ def schedule() -> None:
 
 
 @schedule.command("daily")
-@click.option("--workspace", type=click.Path(path_type=Path), default=Path("/Users/rich/.openclaw/workspace"))
+@click.option(
+    "--workspace", type=click.Path(path_type=Path), default=Path("/Users/rich/.openclaw/workspace")
+)
 @click.option("--date", "date_str", default=None, help="Date in YYYY-MM-DD (default: today local)")
-@click.option("--inbox-file", multiple=True, type=click.Path(path_type=Path), help="Optional inbox summary files")
+@click.option(
+    "--inbox-file",
+    multiple=True,
+    type=click.Path(path_type=Path),
+    help="Optional inbox summary files",
+)
 @click.option("--write", "write_back", is_flag=True, help="Write memory updates to files")
-def daily(workspace: Path, date_str: str | None, inbox_file: tuple[Path, ...], write_back: bool) -> None:
+def daily(
+    workspace: Path, date_str: str | None, inbox_file: tuple[Path, ...], write_back: bool
+) -> None:
     """Generate a daily plan using memory + mailbox context (Claude Agent SDK only)."""
     schedule_dir = workspace / "memory" / "schedule-memory"
     schedule_dir.mkdir(parents=True, exist_ok=True)
@@ -164,7 +173,7 @@ Context:
 - Today's memory:\n{_read_text(today_mem)[:4000]}
 - Yesterday's memory:\n{_read_text(yesterday_mem)[:2500]}
 - Long-term routine memory:\n{_read_text(ltm)[:4000]}
-- Inbox context:\n{'\n\n'.join(inbox_chunks)[:5000]}
+- Inbox context:\n{"\n\n".join(inbox_chunks)[:5000]}
 
 Tasks:
 1) Triage inbox signals into urgent/actionable/waiting.
@@ -201,4 +210,6 @@ LTM_UPDATES:
             _append_block(ltm, f"Update {day}", sections["LTM_UPDATES"])
         console.print("\n[green]Memory updates written.[/green]")
     else:
-        console.print("\n[dim]Dry run (no file writes). Use --write to persist memory updates.[/dim]")
+        console.print(
+            "\n[dim]Dry run (no file writes). Use --write to persist memory updates.[/dim]"
+        )

@@ -35,14 +35,7 @@ def check_deps(skill_dir: Path) -> list[DepIssue]:
     # Check packages
     installed = {d.metadata["Name"].lower() for d in distributions()}
     for pkg_spec in dep_data.get("packages", []):
-        pkg_name = (
-            pkg_spec.split(">")[0]
-            .split("<")[0]
-            .split("=")[0]
-            .split("!")[0]
-            .strip()
-            .lower()
-        )
+        pkg_name = pkg_spec.split(">")[0].split("<")[0].split("=")[0].split("!")[0].strip().lower()
         if pkg_name not in installed:
             issues.append(
                 DepIssue(skill_id, "missing_package", f"Package '{pkg_spec}' not installed")

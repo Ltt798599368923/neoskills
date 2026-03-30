@@ -138,9 +138,7 @@ class OntologyEngine:
             for s2 in skill_ids[i + 1 :]:
                 if self.graph.get_edges(
                     source=s1, target=s2, edge_type=EdgeType.CONFLICTS_WITH
-                ) or self.graph.get_edges(
-                    source=s2, target=s1, edge_type=EdgeType.CONFLICTS_WITH
-                ):
+                ) or self.graph.get_edges(source=s2, target=s1, edge_type=EdgeType.CONFLICTS_WITH):
                     conflicts.append((s1, s2))
         return conflicts
 
@@ -189,9 +187,7 @@ class OntologyEngine:
 
         return edge
 
-    def remove_edge(
-        self, source: str, target: str, edge_type: str, persist: bool = True
-    ) -> bool:
+    def remove_edge(self, source: str, target: str, edge_type: str, persist: bool = True) -> bool:
         """Remove a relationship."""
         try:
             et = EdgeType(edge_type)
@@ -239,9 +235,7 @@ class OntologyEngine:
     # Versioning
     # ──────────────────────────────────────────────
 
-    def version_bump(
-        self, skill_id: str, bump: str = "patch", persist: bool = True
-    ) -> str:
+    def version_bump(self, skill_id: str, bump: str = "patch", persist: bool = True) -> str:
         """Bump version and record lineage."""
         node = self.graph.get_node(skill_id)
         if node is None:
@@ -269,9 +263,7 @@ class OntologyEngine:
         persist: bool = True,
     ) -> SkillNode:
         """Create a composite skill from components."""
-        composite = compose(
-            self.graph, skill_ids, mode, name, description, output_dir
-        )
+        composite = compose(self.graph, skill_ids, mode, name, description, output_dir)
 
         # Add to graph
         self.graph.add_node(composite)
@@ -287,7 +279,7 @@ class OntologyEngine:
             skill_md = composite.path / "SKILL.md"
             skill_md.write_text(
                 f"---\nname: {composite.name}\n"
-                f"description: \"{composite.description}\"\n---\n\n"
+                f'description: "{composite.description}"\n---\n\n'
                 f"# {composite.name}\n\n{composite.description}\n",
                 encoding="utf-8",
             )
@@ -346,9 +338,7 @@ class OntologyEngine:
     # Enrichment (placeholder for Phase 3 Claude integration)
     # ──────────────────────────────────────────────
 
-    def enrich(
-        self, skill_id: str, level: str = "L1", dry_run: bool = False
-    ) -> dict[str, Any]:
+    def enrich(self, skill_id: str, level: str = "L1", dry_run: bool = False) -> dict[str, Any]:
         """Auto-enrich a skill's ontology metadata.
 
         For L0→L1: uses heuristic inference (taxonomy, substrate detection).
@@ -395,12 +385,20 @@ class OntologyEngine:
     def enrich_all(self, level: str = "L1", dry_run: bool = True) -> list[dict[str, Any]]:
         """Batch-enrich all skills below target level."""
         results: list[dict[str, Any]] = []
-        target_level = EnrichmentLevel(level) if level in [e.value for e in EnrichmentLevel] else EnrichmentLevel.L1_TAGGED
+        target_level = (
+            EnrichmentLevel(level)
+            if level in [e.value for e in EnrichmentLevel]
+            else EnrichmentLevel.L1_TAGGED
+        )
 
         for node in self.graph:
             # Only enrich if below target
-            level_order = [EnrichmentLevel.L0_BARE, EnrichmentLevel.L1_TAGGED,
-                          EnrichmentLevel.L2_CONNECTED, EnrichmentLevel.L3_GOVERNED]
+            level_order = [
+                EnrichmentLevel.L0_BARE,
+                EnrichmentLevel.L1_TAGGED,
+                EnrichmentLevel.L2_CONNECTED,
+                EnrichmentLevel.L3_GOVERNED,
+            ]
             if level_order.index(node.enrichment_level) < level_order.index(target_level):
                 result = self.enrich(node.qualified_id, level, dry_run)
                 if result.get("changes"):

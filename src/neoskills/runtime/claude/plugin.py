@@ -74,7 +74,11 @@ def neoskills_scan(target: str | None = None) -> dict:
         "target": target or cellar.load_config().get("default_target", "claude-code"),
         "count": len(links),
         "skills": [
-            {"id": lnk["skill_id"], "is_symlink": lnk["is_symlink"], "source": lnk.get("source", "")}
+            {
+                "id": lnk["skill_id"],
+                "is_symlink": lnk["is_symlink"],
+                "source": lnk.get("source", ""),
+            }
             for lnk in links
         ],
     }
@@ -245,14 +249,17 @@ def neoskills_ontology_graph(skill_id: str, depth: int = 1, fmt: str = "mermaid"
     else:
         sub = engine.find_related(bare_id, min(depth, 3))
         import json
-        content = json.dumps({
-            "center": sub.center,
-            "nodes": [n.skill_id for n in sub.nodes.values()],
-            "edges": [
-                {"source": e.source, "target": e.target, "type": e.edge_type.value}
-                for e in sub.edges
-            ],
-        })
+
+        content = json.dumps(
+            {
+                "center": sub.center,
+                "nodes": [n.skill_id for n in sub.nodes.values()],
+                "edges": [
+                    {"source": e.source, "target": e.target, "type": e.edge_type.value}
+                    for e in sub.edges
+                ],
+            }
+        )
 
     return {"skill_id": bare_id, "format": fmt, "depth": depth, "graph": content}
 
@@ -350,9 +357,17 @@ def neoskills_capabilities() -> dict:
     """
     mode = detect_mode()
     caps = [
-        "list", "scan", "deploy", "enhance", "doctor",
-        "ontology_discover", "ontology_deps", "ontology_graph",
-        "ontology_transition", "ontology_add_edge", "ontology_version",
+        "list",
+        "scan",
+        "deploy",
+        "enhance",
+        "doctor",
+        "ontology_discover",
+        "ontology_deps",
+        "ontology_graph",
+        "ontology_transition",
+        "ontology_add_edge",
+        "ontology_version",
         "ontology_stats",
     ]
 

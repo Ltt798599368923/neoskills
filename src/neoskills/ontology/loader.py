@@ -85,12 +85,14 @@ def discover_plugin_trees(
                         continue
                     skills_dir = version_dir / "skills"
                     if skills_dir.exists():
-                        trees.append({
-                            "root": skills_dir,
-                            "pattern": "*",
-                            "namespace": f"plugin/{domain_dir.name}",
-                            "source_type": "plugin",
-                        })
+                        trees.append(
+                            {
+                                "root": skills_dir,
+                                "pattern": "*",
+                                "namespace": f"plugin/{domain_dir.name}",
+                                "source_type": "plugin",
+                            }
+                        )
 
     # Remote plugins
     if remote_plugins_root and remote_plugins_root.exists():
@@ -99,12 +101,14 @@ def discover_plugin_trees(
                 continue
             skills_dir = plugin_dir / "skills"
             if skills_dir.exists():
-                trees.append({
-                    "root": skills_dir,
-                    "pattern": "*",
-                    "namespace": f"remote/{plugin_dir.name}",
-                    "source_type": "remote",
-                })
+                trees.append(
+                    {
+                        "root": skills_dir,
+                        "pattern": "*",
+                        "namespace": f"remote/{plugin_dir.name}",
+                        "source_type": "remote",
+                    }
+                )
 
     return trees
 
@@ -297,9 +301,7 @@ def _build_node(
     )
 
 
-def _extract_edges(
-    skill_id: str, ontology: dict[str, Any] | None
-) -> list[OntologyEdge]:
+def _extract_edges(skill_id: str, ontology: dict[str, Any] | None) -> list[OntologyEdge]:
     """Extract edges from ontology.yaml edges block."""
     if not ontology:
         return []
@@ -346,9 +348,7 @@ class OntologyLoader:
     ) -> None:
         self.source_trees = [] if skip_defaults else default_source_trees()
         if local_plugins_root or remote_plugins_root:
-            self.source_trees.extend(
-                discover_plugin_trees(local_plugins_root, remote_plugins_root)
-            )
+            self.source_trees.extend(discover_plugin_trees(local_plugins_root, remote_plugins_root))
         if extra_source_trees:
             self.source_trees.extend(extra_source_trees)
 
@@ -409,7 +409,6 @@ class OntologyLoader:
                     logger.warning(f"Failed to load skill {skill_dir}: {e}")
 
         logger.info(
-            f"Loaded {len(graph)} skills, {len(graph.edges)} edges, "
-            f"{len(graph.domains)} domains"
+            f"Loaded {len(graph)} skills, {len(graph.edges)} edges, {len(graph.domains)} domains"
         )
         return graph

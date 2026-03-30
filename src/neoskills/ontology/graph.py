@@ -48,12 +48,8 @@ class SkillGraph:
         self._by_enrichment: dict[str, set[str]] = defaultdict(set)
 
         # Adjacency lists — skill_id → {edge_type → set of target_ids}
-        self._forward: dict[str, dict[EdgeType, set[str]]] = defaultdict(
-            lambda: defaultdict(set)
-        )
-        self._reverse: dict[str, dict[EdgeType, set[str]]] = defaultdict(
-            lambda: defaultdict(set)
-        )
+        self._forward: dict[str, dict[EdgeType, set[str]]] = defaultdict(lambda: defaultdict(set))
+        self._reverse: dict[str, dict[EdgeType, set[str]]] = defaultdict(lambda: defaultdict(set))
 
     # ──────────────────────────────────────────────
     # Node operations
@@ -75,9 +71,7 @@ class SkillGraph:
         node = self.nodes.pop(skill_id)
         self._unindex_node(skill_id)
         # Remove all edges involving this node
-        self.edges = [
-            e for e in self.edges if e.source != skill_id and e.target != skill_id
-        ]
+        self.edges = [e for e in self.edges if e.source != skill_id and e.target != skill_id]
         # Clean adjacency
         if skill_id in self._forward:
             del self._forward[skill_id]
@@ -117,9 +111,7 @@ class SkillGraph:
         self._forward[edge.source][edge.edge_type].add(edge.target)
         self._reverse[edge.target][edge.edge_type].add(edge.source)
 
-    def remove_edge(
-        self, source: str, target: str, edge_type: EdgeType
-    ) -> bool:
+    def remove_edge(self, source: str, target: str, edge_type: EdgeType) -> bool:
         """Remove an edge. Returns True if found and removed."""
         sentinel = OntologyEdge(source=source, target=target, edge_type=edge_type)
         if sentinel not in self.edges:
@@ -165,7 +157,9 @@ class SkillGraph:
         return [self.nodes[sid] for sid in self._by_tag.get(tag, set()) if sid in self.nodes]
 
     def by_namespace(self, namespace: str) -> list[SkillNode]:
-        return [self.nodes[sid] for sid in self._by_namespace.get(namespace, set()) if sid in self.nodes]
+        return [
+            self.nodes[sid] for sid in self._by_namespace.get(namespace, set()) if sid in self.nodes
+        ]
 
     def by_enrichment(self, level: EnrichmentLevel | str) -> list[SkillNode]:
         key = level.value if isinstance(level, EnrichmentLevel) else level
@@ -268,14 +262,10 @@ class SkillGraph:
         visited |= frontier
 
         nodes = {sid: self.nodes[sid] for sid in visited if sid in self.nodes}
-        edges = [
-            e for e in self.edges if e.source in visited and e.target in visited
-        ]
+        edges = [e for e in self.edges if e.source in visited and e.target in visited]
         return SubGraph(nodes=nodes, edges=edges, center=skill_id, depth=depth)
 
-    def find_path(
-        self, from_id: str, to_id: str, max_depth: int = 10
-    ) -> list[str] | None:
+    def find_path(self, from_id: str, to_id: str, max_depth: int = 10) -> list[str] | None:
         """BFS shortest path between two skills (any edge type)."""
         if from_id == to_id:
             return [from_id]
@@ -331,8 +321,7 @@ class SkillGraph:
             )
             if reverse not in self.edges:
                 warnings.append(
-                    f"Asymmetric CONFLICTS_WITH: {edge.source} → {edge.target} "
-                    f"(missing reverse)"
+                    f"Asymmetric CONFLICTS_WITH: {edge.source} → {edge.target} (missing reverse)"
                 )
 
         # Warn about L0 skills
@@ -406,9 +395,7 @@ class SkillGraph:
             for bucket in idx.values():
                 bucket.discard(key)
 
-    def _transitive_closure(
-        self, start: str, edge_type: EdgeType, direction: str
-    ) -> set[str]:
+    def _transitive_closure(self, start: str, edge_type: EdgeType, direction: str) -> set[str]:
         """BFS transitive closure along one edge type."""
         visited: set[str] = set()
         queue = [start]

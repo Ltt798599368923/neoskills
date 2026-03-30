@@ -100,18 +100,20 @@ class TapManager:
             if not skill_md.exists():
                 continue
             fm, _ = parse_frontmatter(skill_md.read_text())
-            results.append({
-                "skill_id": skill_dir.name,
-                "name": fm.get("name", skill_dir.name),
-                "description": fm.get("description", ""),
-                "version": fm.get("version", ""),
-                "author": fm.get("author", ""),
-                "tags": fm.get("tags", []),
-                "targets": fm.get("targets", []),
-                "source": fm.get("source", tap_name),
-                "tap": tap_name,
-                "path": skill_dir,
-            })
+            results.append(
+                {
+                    "skill_id": skill_dir.name,
+                    "name": fm.get("name", skill_dir.name),
+                    "description": fm.get("description", ""),
+                    "version": fm.get("version", ""),
+                    "author": fm.get("author", ""),
+                    "tags": fm.get("tags", []),
+                    "targets": fm.get("targets", []),
+                    "source": fm.get("source", tap_name),
+                    "tap": tap_name,
+                    "path": skill_dir,
+                }
+            )
         return results
 
     def get_skill_path(self, skill_id: str, tap_name: str | None = None) -> Path | None:

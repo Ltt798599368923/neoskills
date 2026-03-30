@@ -35,5 +35,5 @@ class NamespaceManager:
     def strip(self, qualified_name: str) -> str:
         """Remove namespace prefix to get the bare skill name."""
         if qualified_name.startswith(self._prefix):
-            return qualified_name[len(self._prefix):]
+            return qualified_name[len(self._prefix) :]
         return qualified_name

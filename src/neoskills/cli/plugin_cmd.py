@@ -150,7 +150,9 @@ def _create_marketplace(base: Path) -> None:
         "      - run: neoskills plugin validate plugin/neoskills\n"
     )
 
-    console.print(f"[bold green]MarketPlace template created at {base / 'MarketPlace'}[/bold green]")
+    console.print(
+        f"[bold green]MarketPlace template created at {base / 'MarketPlace'}[/bold green]"
+    )
     console.print(f"  plugin.yaml: {plugin_root / 'plugin.yaml'}")
     console.print("  Skills: 3 (find_skills, install_skill, skill_creator)")
     console.print("  Agents: 1 (skill-manager)")
@@ -167,9 +169,7 @@ def _create_minimal(base: Path) -> None:
         "namespace": "plugin/neoskills",
         "capabilities": ["discover"],
     }
-    (plugin_root / "plugin.yaml").write_text(
-        yaml.dump(minimal_yaml, default_flow_style=False)
-    )
+    (plugin_root / "plugin.yaml").write_text(yaml.dump(minimal_yaml, default_flow_style=False))
 
     console.print(f"[bold green]Minimal plugin created at {plugin_root}[/bold green]")
 

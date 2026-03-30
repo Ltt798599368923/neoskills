@@ -260,9 +260,11 @@ class Workspace:
                 warnings.append("Config missing 'version' field")
 
             # Optional: master_repo check
-            master_url = cfg.get("master_repo", {}).get("url") if isinstance(
-                cfg.get("master_repo"), dict
-            ) else None
+            master_url = (
+                cfg.get("master_repo", {}).get("url")
+                if isinstance(cfg.get("master_repo"), dict)
+                else None
+            )
             if master_url:
                 warnings.append(f"master_repo configured: {master_url} (not verified at init)")
 

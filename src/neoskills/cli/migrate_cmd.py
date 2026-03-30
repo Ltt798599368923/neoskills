@@ -88,8 +88,7 @@ def migrate(root: str | None, tap_name: str, dry_run: bool) -> None:
 
     # Count old skills
     old_skills = [
-        d for d in old_bank.iterdir()
-        if d.is_dir() and (d / "canonical" / "SKILL.md").exists()
+        d for d in old_bank.iterdir() if d.is_dir() and (d / "canonical" / "SKILL.md").exists()
     ]
     click.echo(f"Found {len(old_skills)} skills in v0.2 bank")
 
@@ -127,18 +126,25 @@ def migrate(root: str | None, tap_name: str, dry_run: bool) -> None:
             skipped += 1
             click.echo(f"  Skipped {result['skill_id']}: {result.get('reason', '')}")
 
-    click.echo(f"\n{'Would migrate' if dry_run else 'Migrated'} {migrated} skills ({skipped} skipped)")
+    click.echo(
+        f"\n{'Would migrate' if dry_run else 'Migrated'} {migrated} skills ({skipped} skipped)"
+    )
 
     # Step 3: Update config.yaml
     if not dry_run:
         config = cellar.load_config()
         config["version"] = "0.3.1"
         config["default_tap"] = tap_name
-        config["default_target"] = config.pop("default_target", "claude-code-user").replace("-user", "")
-        config.setdefault("targets", {
-            "claude-code": {"skill_path": "~/.claude/skills"},
-            "opencode": {"skill_path": "~/.config/opencode/skills"},
-        })
+        config["default_target"] = config.pop("default_target", "claude-code-user").replace(
+            "-user", ""
+        )
+        config.setdefault(
+            "targets",
+            {
+                "claude-code": {"skill_path": "~/.claude/skills"},
+                "opencode": {"skill_path": "~/.config/opencode/skills"},
+            },
+        )
         config.setdefault("taps", {})
         config["taps"][tap_name] = {"default": True}
         cellar.save_config(config)
@@ -147,6 +153,7 @@ def migrate(root: str | None, tap_name: str, dry_run: bool) -> None:
     # Step 4: Re-create symlinks
     if not dry_run:
         from neoskills.core.linker import Linker
+
         linker = Linker(cellar)
         actions = linker.link_all(new_skills_dir)
         linked = sum(1 for a in actions if a.action == "linked")

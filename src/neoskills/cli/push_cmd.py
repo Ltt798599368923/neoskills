@@ -34,8 +34,11 @@ def push(tap_name: str | None, message: str | None, root: str | None) -> None:
         return
 
     # Stage all changes in skills/ and plugins/
-    paths_to_add = [p for p in ["skills/", "plugins/", "tap.yaml", "README.md"]
-                    if (tap_dir / p.rstrip("/")).exists()]
+    paths_to_add = [
+        p
+        for p in ["skills/", "plugins/", "tap.yaml", "README.md"]
+        if (tap_dir / p.rstrip("/")).exists()
+    ]
     if paths_to_add:
         repo.git.add(*paths_to_add, catch_exceptions=False)
 

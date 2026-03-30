@@ -196,47 +196,45 @@ def infer_domain_from_skill_id(skill_id: str) -> list[str]:
 
     mappings: list[tuple[list[str], list[str]]] = [
         # KSTAR cognitive cycle
-        (["kstar-loop", "kstar-planner", "kstar-observer", "kstar-delta", "kstar-retrieval"],
-         ["agent-architecture", "kstar-cognitive"]),
+        (
+            ["kstar-loop", "kstar-planner", "kstar-observer", "kstar-delta", "kstar-retrieval"],
+            ["agent-architecture", "kstar-cognitive"],
+        ),
         # KSTAR memory/transformation
-        (["kstar-transformation", "kstar-xapi"],
-         ["agent-architecture", "agent-memory"]),
+        (["kstar-transformation", "kstar-xapi"], ["agent-architecture", "agent-memory"]),
         # Skill lifecycle
-        (["kstar-to-skill", "skill-lifecycle", "kstar-episode-compiler", "kstar-skill-analyzer"],
-         ["agent-architecture", "agent-lifecycle"]),
+        (
+            ["kstar-to-skill", "skill-lifecycle", "kstar-episode-compiler", "kstar-skill-analyzer"],
+            ["agent-architecture", "agent-lifecycle"],
+        ),
         # Agent design
-        (["neo-agent-design", "p3394"],
-         ["agent-architecture", "agent-design"]),
+        (["neo-agent-design", "p3394"], ["agent-architecture", "agent-design"]),
         # Education
-        (["teacher-", "curriculum-", "learning-session", "skill-transfer"],
-         ["education", "curriculum"]),
-        (["quiz-", "lm-quiz"],
-         ["education", "assessment"]),
-        (["run-module"],
-         ["education", "learning-runtime"]),
+        (
+            ["teacher-", "curriculum-", "learning-session", "skill-transfer"],
+            ["education", "curriculum"],
+        ),
+        (["quiz-", "lm-quiz"], ["education", "assessment"]),
+        (["run-module"], ["education", "learning-runtime"]),
         # Document processing
-        (["wechat-html", "wechat-article", "wechat-math", "chat-to-wechat"],
-         ["document-processing", "wechat"]),
-        (["research-md-to-latex", "paper-refinement", "bibitem"],
-         ["document-processing", "academic"]),
-        (["source-text-to-markdown", "doc-pipeline"],
-         ["document-processing", "pipeline"]),
-        (["debate-transcript"],
-         ["document-processing", "conversion"]),
+        (
+            ["wechat-html", "wechat-article", "wechat-math", "chat-to-wechat"],
+            ["document-processing", "wechat"],
+        ),
+        (
+            ["research-md-to-latex", "paper-refinement", "bibitem"],
+            ["document-processing", "academic"],
+        ),
+        (["source-text-to-markdown", "doc-pipeline"], ["document-processing", "pipeline"]),
+        (["debate-transcript"], ["document-processing", "conversion"]),
         # Business
-        (["bid-doc", "quinn-bid"],
-         ["business", "bidding"]),
-        (["master-plan", "daily-strategic"],
-         ["business", "planning"]),
-        (["neolaf-business"],
-         ["business", "strategy"]),
+        (["bid-doc", "quinn-bid"], ["business", "bidding"]),
+        (["master-plan", "daily-strategic"], ["business", "planning"]),
+        (["neolaf-business"], ["business", "strategy"]),
         # Meta
-        (["skill-creator", "skill-dependency", "skill-analyzer"],
-         ["meta", "skill-management"]),
-        (["teach-any-skill", "concept-", "grokpedia"],
-         ["meta", "understanding"]),
-        (["mcp-builder", "openclaw-installer", "schedule"],
-         ["meta", "infrastructure"]),
+        (["skill-creator", "skill-dependency", "skill-analyzer"], ["meta", "skill-management"]),
+        (["teach-any-skill", "concept-", "grokpedia"], ["meta", "understanding"]),
+        (["mcp-builder", "openclaw-installer", "schedule"], ["meta", "infrastructure"]),
     ]
 
     for patterns, domains in mappings:

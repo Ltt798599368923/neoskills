@@ -91,9 +91,7 @@ def compose(
 
     if not description:
         component_names = [n.name or n.skill_id for n in nodes]
-        description = (
-            f"Composite {comp_mode.value} of: {', '.join(component_names)}"
-        )
+        description = f"Composite {comp_mode.value} of: {', '.join(component_names)}"
 
     # Build stages
     stages: list[dict[str, Any]] = []
@@ -195,17 +193,21 @@ def decompose_plan(
     }
 
     for sub_name in sub_skill_names:
-        plan["sub_skills"].append({
-            "skill_id": sub_name,
-            "derived_from": skill_id,
-            "domain": node.domain,
-            "tags": node.tags,
-            "lifecycle_state": "candidate",
-        })
-        plan["edges"].append({
-            "source": sub_name,
-            "target": skill_id,
-            "edge_type": "derived_from",
-        })
+        plan["sub_skills"].append(
+            {
+                "skill_id": sub_name,
+                "derived_from": skill_id,
+                "domain": node.domain,
+                "tags": node.tags,
+                "lifecycle_state": "candidate",
+            }
+        )
+        plan["edges"].append(
+            {
+                "source": sub_name,
+                "target": skill_id,
+                "edge_type": "derived_from",
+            }
+        )
 
     return plan

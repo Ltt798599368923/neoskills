@@ -44,7 +44,9 @@ def validate_plugin_yaml(path: Path) -> dict[str, Any]:
         if val is None:
             errors.append(f"Missing required field: {field_name}")
         elif not isinstance(val, expected_type):
-            errors.append(f"Field '{field_name}' must be {expected_type.__name__}, got {type(val).__name__}")
+            errors.append(
+                f"Field '{field_name}' must be {expected_type.__name__}, got {type(val).__name__}"
+            )
 
     # Check namespace format
     ns = data.get("namespace", "")
@@ -55,6 +57,8 @@ def validate_plugin_yaml(path: Path) -> dict[str, Any]:
     for field_name, expected_type in _OPTIONAL_FIELDS.items():
         val = data.get(field_name)
         if val is not None and not isinstance(val, expected_type):
-            errors.append(f"Field '{field_name}' must be {expected_type.__name__}, got {type(val).__name__}")
+            errors.append(
+                f"Field '{field_name}' must be {expected_type.__name__}, got {type(val).__name__}"
+            )
 
     return {"valid": len(errors) == 0, "errors": errors, "data": data}

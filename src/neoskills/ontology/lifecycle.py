@@ -14,9 +14,7 @@ class LifecycleError(Exception):
     """Raised when an invalid lifecycle transition is attempted."""
 
 
-def transition(
-    node: SkillNode, to_state: str | LifecycleState, reason: str = ""
-) -> LifecycleEvent:
+def transition(node: SkillNode, to_state: str | LifecycleState, reason: str = "") -> LifecycleEvent:
     """Transition a skill to a new lifecycle state.
 
     Validates the transition is legal, records the event, and updates the node.
@@ -29,18 +27,14 @@ def transition(
             target = LifecycleState(to_state)
         except ValueError:
             valid = [s.value for s in LifecycleState]
-            raise LifecycleError(
-                f"Unknown state '{to_state}'. Valid states: {valid}"
-            )
+            raise LifecycleError(f"Unknown state '{to_state}'. Valid states: {valid}")
     else:
         target = to_state
 
     current = node.lifecycle_state
 
     if current == target:
-        raise LifecycleError(
-            f"Skill '{node.skill_id}' is already in state '{target.value}'"
-        )
+        raise LifecycleError(f"Skill '{node.skill_id}' is already in state '{target.value}'")
 
     if not current.can_transition_to(target):
         allowed = [s.value for s in LifecycleState.valid_transitions().get(current, [])]

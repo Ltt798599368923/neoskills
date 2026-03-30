@@ -11,14 +11,23 @@ from neoskills.core.tap import TapManager
 @click.command("list")
 @click.option("--linked", is_flag=True, help="Show only linked skills.")
 @click.option("--available", is_flag=True, help="Show all skills in default tap.")
-@click.option("--scope", "scope_filter", default=None,
-              type=click.Choice(["user", "project", "plugin"], case_sensitive=False),
-              help="Filter by scope.")
+@click.option(
+    "--scope",
+    "scope_filter",
+    default=None,
+    type=click.Choice(["user", "project", "plugin"], case_sensitive=False),
+    help="Filter by scope.",
+)
 @click.option("--target", default=None, help="Target agent.")
 @click.option("--tap", "tap_name", default=None, help="Tap to list from.")
 @click.option("--root", default=None, type=click.Path(), help="Workspace root.")
 def list_skills(
-    linked: bool, available: bool, scope_filter: str | None, target: str | None, tap_name: str | None, root: str | None
+    linked: bool,
+    available: bool,
+    scope_filter: str | None,
+    target: str | None,
+    tap_name: str | None,
+    root: str | None,
 ) -> None:
     """List installed and/or linked skills."""
     from pathlib import Path
@@ -134,6 +143,7 @@ def info(skill_id: str, root: str | None) -> None:
 
     # Show manifest info if metadata.yaml exists
     from neoskills.core.manifest import SkillManifest
+
     manifest = SkillManifest.from_skill_dir(skill_path)
     if manifest.type.value != "regular":
         click.echo(f"Type:        {manifest.type.value}")

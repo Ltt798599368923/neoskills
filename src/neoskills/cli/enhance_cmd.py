@@ -17,7 +17,9 @@ console = Console()
 @click.option("--apply", "apply_result", is_flag=True, help="Apply the result to the skill")
 @click.option("--target-agent", default="opencode", help="Target agent for generate-variant")
 @click.option("--root", default=None, type=click.Path(), help="Workspace root.")
-def enhance(operation: str, skill_id: str, apply_result: bool, target_agent: str, root: str | None) -> None:
+def enhance(
+    operation: str, skill_id: str, apply_result: bool, target_agent: str, root: str | None
+) -> None:
     """Enhance a skill using Claude."""
     from pathlib import Path
 
