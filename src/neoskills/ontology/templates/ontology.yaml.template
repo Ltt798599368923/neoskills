@@ -1,0 +1,82 @@
+# ontology.yaml — Ontology metadata for {{skill_id}}
+#
+# This file describes how this skill fits into the broader skill graph.
+# It is read by `neoskills ontology` commands for discovery, dependency
+# analysis, lifecycle tracking, and composition.
+#
+# Enrichment levels:
+#   L0 (bare)      — no ontology.yaml (SKILL.md only)
+#   L1 (tagged)    — type, domain, tags filled in
+#   L2 (connected) — edges section populated
+#   L3 (governed)  — lifecycle, versioning, capability all maintained
+#
+# Start at L1 and grow over time. Run `neoskills ontology enrich <id>`
+# to auto-infer what it can.
+
+schema_version: "1.0"
+
+# ── Classification ──────────────────────────────
+# type: task | meta | domain | utility | template | composite
+type: task
+
+# domain: pick from the taxonomy (run `neoskills ontology stats` to see all)
+#   Top-level: agent-architecture, education, document-processing,
+#              business, knowledge-work, meta
+#   Children:  kstar-cognitive, curriculum, academic, bidding, finance, ...
+domain:
+  - general
+
+# layer: L0-execution | L1-learning | L2-meta | L3-governance
+# layer: ""
+
+# substrate: pure-prompt | script | composite | external-tool
+# substrate: pure-prompt
+
+# ── Lifecycle ───────────────────────────────────
+lifecycle:
+  state: candidate          # candidate → validated → operational → refined → deprecated → archived
+  maturity: created          # created | tested | production | battle-tested
+  # confidence: 0.0          # 0.0–1.0 (optional, from KSTAR delta)
+  # history:
+  #   - { from: candidate, to: validated, at: "2026-01-01", reason: "Passed initial testing" }
+
+# ── Versioning ──────────────────────────────────
+version: "0.1.0"
+# lineage:                   # version history
+#   - "{{skill_id}}@0.1.0"
+
+# ── Edges (relationships to other skills) ───────
+# Uncomment and populate as you connect this skill to others.
+# edges:
+#   requires: []             # hard dependencies (must be present)
+#   extends: []              # inherits + overrides behavior from
+#   composes_with: []        # can be chained in a pipeline with
+#   conflicts_with: []       # mutual exclusion
+#   supersedes: []           # replaces an older skill
+#   derived_from: []         # was split/merged from
+
+# ── Capability manifest ─────────────────────────
+# capability:
+#   inputs: []               # named input slots
+#   outputs: []              # named output slots
+#   tools_required: []       # MCP tools, CLI tools, etc.
+#   pre_flight:
+#     - check: "python3 --version"
+#       on_fail: "Python 3 required"
+#   model_preference: ""     # sonnet | opus | haiku
+
+# ── Composition (only for type: composite) ──────
+# composition:
+#   mode: pipeline           # pipeline | ensemble | selector
+#   stages:
+#     - skill_id: step-one
+#       inputs: { source: "$input.file" }
+#     - skill_id: step-two
+#       inputs_from: stage_0
+
+# ── Instance params (only for template instances) ──
+# instance_params:
+#   user: "Your Name"
+
+# ── Tags ────────────────────────────────────────
+tags: []

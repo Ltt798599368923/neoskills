@@ -1,0 +1,13 @@
+# ontology.yaml — {{skill_id}}
+# Run `neoskills ontology enrich {{skill_id}}` to auto-populate.
+# See full template: neoskills/ontology/templates/ontology.yaml.template
+
+schema_version: "1.0"
+type: {{type}}
+domain:
+{{domain_lines}}
+lifecycle:
+  state: candidate
+  maturity: created
+version: "0.1.0"
+tags: {{tags}}
