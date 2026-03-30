@@ -7,6 +7,7 @@ from pathlib import Path
 _SKIP_NAMES = {
     "metadata.yaml",
     "provenance.yaml",
+    "ontology.yaml",
     ".gitkeep",
     ".DS_Store",
     "__pycache__",

@@ -43,6 +43,9 @@ def _register_later_commands() -> None:
         ("neoskills.cli.enhance_cmd", "enhance"),
         ("neoskills.cli.agent_cmd", "agent"),
         ("neoskills.cli.plugin_cmd", "plugin"),
+        ("neoskills.cli.schedule_cmd", "schedule"),
+        # --- Ontology layer ---
+        ("neoskills.cli.ontology_cmd", "ontology"),
     ]
     import importlib
 
