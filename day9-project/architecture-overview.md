@@ -1,26 +1,26 @@
-# Neoskills Architecture Overview
+# Neoskills 架构概览
 
-## Project Summary
-**neoskills** is a Python CLI tool for managing AI agent skills across multiple platforms (Claude Code, OpenCode, and plugins). It provides skill discovery, import, deduplication, embedding, and ontology management.
+## 项目简介
+**neoskills** 是一个 Python CLI 工具，用于在多个平台（Claude Code、OpenCode 和插件）上管理 AI agent 技能。它提供技能发现、导入、去重、嵌入和本体管理功能。
 
 ---
 
-## High-Level Architecture
+## 高层架构
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        CLI Entry Point                          │
+│                        CLI 入口                                 │
 │                     (cli/main.py)                               │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌───────────────┐  │
-│  │ Commands │  │  Core    │  │ Ontology │  │   Runtime     │  │
+│  │ 命令模块  │  │  核心    │  │ 本体系统  │  │   运行时      │  │
 │  │  (cli/)  │──│ (core/)  │  │  (/)     │  │  (runtime/)   │  │
 │  └──────────┘  └──────────┘  └──────────┘  └───────────────┘  │
 │       │              │              │              │           │
 │       ▼              ▼              ▼              ▼           │
 │  ┌──────────────────────────────────────────────────────────┐  │
-│  │                    Adapters Layer                        │  │
+│  │                    适配器层                               │  │
 │  │                  (adapters/)                             │  │
 │  │   ┌─────────┐  ┌──────────┐  ┌──────────┐              │  │
 │  │   │ Claude  │  │ OpenClaw │  │ OpenCode │              │  │
@@ -28,7 +28,7 @@
 │  └──────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌──────────┐  ┌──────────┐                                    │
-│  │ Plugin   │  │Translators│                                    │
+│  │ 插件系统  │  │ 转换器    │                                    │
 │  │ (plugin/)│  │  (/)      │                                    │
 │  └──────────┘  └──────────┘                                    │
 └─────────────────────────────────────────────────────────────────┘
@@ -36,114 +36,114 @@
 
 ---
 
-## Module Dependencies
+## 模块依赖关系
 
-### Core Modules (`src/neoskills/core/`)
-| Module | Purpose | Dependencies |
-|--------|---------|--------------|
-| `config.py` | Configuration management | None (base module) |
-| `auth.py` | Authentication handling | config |
-| `workspace.py` | Workspace directory management | config |
-| `manifest.py` | Skill manifest definitions | models, frontmatter |
-| `models.py` | Data models | None |
-| `frontmatter.py` | YAML frontmatter parser | None |
-| `index.py` | Skill indexing | manifest, models |
-| `resolver.py` | Skill resolution | index, manifest |
-| `namespace.py` | Namespace management | config |
-| `cellar.py` | Skill storage | manifest |
-| `checksum.py` | File integrity checking | None |
-| `linker.py` | Symlink management | workspace |
-| `tap.py` | Tap (source) management | config |
-| `mode.py` | Operating mode | config |
+### 核心模块（`src/neoskills/core/`）
+| 模块 | 作用 | 依赖 |
+|------|------|------|
+| `config.py` | 配置管理 | 无（基础模块） |
+| `auth.py` | 认证处理 | config |
+| `workspace.py` | 工作区目录管理 | config |
+| `manifest.py` | 技能清单定义 | models, frontmatter |
+| `models.py` | 数据模型 | 无 |
+| `frontmatter.py` | YAML frontmatter 解析器 | 无 |
+| `index.py` | 技能索引 | manifest, models |
+| `resolver.py` | 技能解析 | index, manifest |
+| `namespace.py` | 命名空间管理 | config |
+| `cellar.py` | 技能存储 | manifest |
+| `checksum.py` | 文件完整性检查 | 无 |
+| `linker.py` | 符号链接管理 | workspace |
+| `tap.py` | 源管理 | config |
+| `mode.py` | 运行模式 | config |
 
-### CLI Commands (`src/neoskills/cli/`)
-| Command | Purpose | Core Dependencies |
-|---------|---------|-------------------|
-| `main.py` | CLI entry point | all command modules |
-| `list_cmd.py` | List skills | core/index |
-| `create_cmd.py` | Create new skill | core/manifest |
-| `import_cmd.py` | Import skills | core/resolver |
-| `dedup_cmd.py` | Deduplicate skills | core/checksum |
-| `embed_cmd.py` | Embed skills | core/linker |
-| `doctor_cmd.py` | Health check | core/workspace |
-| `config_cmd.py` | Config management | core/config |
-| `init_cmd.py` | Initialize workspace | core/workspace |
-| `update_cmd.py` | Update skills | core/resolver |
-| `push_cmd.py` | Push to remote | core/auth |
-| `migrate_cmd.py` | Migration utilities | core/manifest |
-| `enhance_cmd.py` | Meta enhancement | meta/enhancer |
-| `ontology_cmd.py` | Ontology operations | ontology/export |
-| `schedule_cmd.py` | Scheduled tasks | core/config |
-| `brew_install_cmd.py` | Brew installation | None |
-| `agent_cmd.py` | Agent management | adapters |
-| `plugin_cmd.py` | Plugin management | plugin |
-| `link_cmd.py` | Link operations | core/linker |
+### CLI 命令（`src/neoskills/cli/`）
+| 命令 | 作用 | 核心依赖 |
+|------|------|---------|
+| `main.py` | CLI 入口 | 所有命令模块 |
+| `list_cmd.py` | 列出技能 | core/index |
+| `create_cmd.py` | 创建新技能 | core/manifest |
+| `import_cmd.py` | 导入技能 | core/resolver |
+| `dedup_cmd.py` | 去重技能 | core/checksum |
+| `embed_cmd.py` | 嵌入技能 | core/linker |
+| `doctor_cmd.py` | 健康检查 | core/workspace |
+| `config_cmd.py` | 配置管理 | core/config |
+| `init_cmd.py` | 初始化工作区 | core/workspace |
+| `update_cmd.py` | 更新技能 | core/resolver |
+| `push_cmd.py` | 推送到远程 | core/auth |
+| `migrate_cmd.py` | 迁移工具 | core/manifest |
+| `enhance_cmd.py` | 元增强 | meta/enhancer |
+| `ontology_cmd.py` | 本体操作 | ontology/export |
+| `schedule_cmd.py` | 定时任务 | core/config |
+| `brew_install_cmd.py` | Brew 安装 | 无 |
+| `agent_cmd.py` | Agent 管理 | adapters |
+| `plugin_cmd.py` | 插件管理 | plugin |
+| `link_cmd.py` | 链接操作 | core/linker |
 
-### Ontology System (`src/neoskills/ontology/`)
-| Module | Purpose |
+### 本体系统（`src/neoskills/ontology/`）
+| 模块 | 作用 |
+|------|------|
+| `models.py` | 本体数据模型 |
+| `loader.py` | 从 YAML 加载本体 |
+| `engine.py` | 本体处理引擎 |
+| `graph.py` | 依赖图 |
+| `taxonomy.py` | 技能分类 |
+| `versioning.py` | 版本管理 |
+| `lifecycle.py` | 技能生命周期状态 |
+| `composition.py` | 技能组合规则 |
+| `scaffold.py` | 本体脚手架 |
+| `export.py` | 导出格式 |
+| `writer.py` | YAML 写入器 |
+
+### 适配器（`src/neoskills/adapters/`）
+| 适配器 | 目标平台 |
 |--------|---------|
-| `models.py` | Ontology data models |
-| `loader.py` | Load ontology from YAML |
-| `engine.py` | Ontology processing engine |
-| `graph.py` | Dependency graph |
-| `taxonomy.py` | Skill classification |
-| `versioning.py` | Version management |
-| `lifecycle.py` | Skill lifecycle states |
-| `composition.py` | Skill composition rules |
-| `scaffold.py` | Ont scaffolding |
-| `export.py` | Export formats |
-| `writer.py` | YAML writer |
-
-### Adapters (`src/neoskills/adapters/`)
-| Adapter | Target Platform |
-|---------|-----------------|
 | `claude/adapter.py` | Claude Code / Claude Desktop |
 | `openclaw/adapter.py` | OpenClaw |
 | `opencode/adapter.py` | OpenCode |
-| `factory.py` | Adapter factory pattern |
-| `base.py` | Abstract adapter interface |
+| `factory.py` | 适配器工厂模式 |
+| `base.py` | 抽象适配器接口 |
 
 ---
 
-## Architecture Patterns
+## 架构模式
 
-### 1. Factory Pattern (Adapters)
+### 1. 工厂模式（适配器）
 ```
 adapter_factory.get(target) → ClaudeAdapter | OpenClawAdapter | OpenCodeAdapter
 ```
-The factory pattern allows adding new AI platform integrations without modifying existing code.
+工厂模式让添加新的 AI 平台集成时不需要修改已有代码。
 
-### 2. Command Pattern (CLI)
-Each CLI command is a separate module with a consistent interface, making it easy to add new commands.
+### 2. 命令模式（CLI）
+每个 CLI 命令都是一个独立的模块，接口一致，方便添加新命令。
 
-### 3. Plugin Architecture
-The plugin system allows extending functionality without modifying core code.
+### 3. 插件架构
+插件系统允许在不修改核心代码的情况下扩展功能。
 
 ---
 
-## Data Flow
+## 数据流
 
 ```
-User Command → CLI Parser → Command Handler → Core Logic → Adapter → Target Platform
+用户命令 → CLI 解析器 → 命令处理器 → 核心逻辑 → 适配器 → 目标平台
                       ↓
-                  Ontology Engine (if applicable)
+                  本体引擎（如果适用）
                       ↓
-                  Plugin System (if applicable)
+                  插件系统（如果适用）
 ```
 
 ---
 
-## Entry Points
+## 入口点
 
-1. **CLI**: `src/neoskills/cli/main.py` - Main entry point for all user interactions
-2. **Core**: `src/neoskills/core/workspace.py` - Workspace initialization
-3. **Ontology**: `src/neoskills/ontology/engine.py` - Ontology processing
+1. **CLI**：`src/neoskills/cli/main.py` - 所有用户交互的主入口
+2. **核心**：`src/neoskills/core/workspace.py` - 工作区初始化
+3. **本体**：`src/neoskills/ontology/engine.py` - 本体处理
 
 ---
 
-## Key Insights for New Contributors
+## 给新贡献者的关键提示
 
-1. **Start with `cli/main.py`** to understand the command structure
-2. **Read `core/config.py`** to understand configuration hierarchy
-3. **Study `adapters/base.py`** to understand the adapter interface
-4. **The ontology system is the most complex** - start with `ontology/models.py` before diving into the engine
+1. **从 `cli/main.py` 开始** 理解命令结构
+2. **读 `core/config.py`** 理解配置层级
+3. **研究 `adapters/base.py`** 理解适配器接口
+4. **本体系统是最复杂的** - 先从 `ontology/models.py` 开始，再深入引擎

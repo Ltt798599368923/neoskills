@@ -1,3 +1,3 @@
-# D5 Weekend Reflection
+# D5 周末反思
 
-For next week, I want to use AI to help me understand and document the neoskills codebase structure. Specifically, I'd like to generate a visual dependency graph of the CLI modules and create API documentation for the core components. This would save me hours of manual tracing through imports and function calls.
+下周我想用 AI 来帮我理解和整理 neoskills 代码库的结构。具体来说，我想生成一份 CLI 模块的依赖关系图，再给核心组件写一份 API 文档。这样能省下我好几个小时手动追踪 import 和函数调用的时间。

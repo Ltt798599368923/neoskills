@@ -1,54 +1,54 @@
-# My AI+X 3D Coordinate Card
+# 我的 AI+X 3D 坐标卡
 
-**Name:** Liu Tingting  
-**Date:** 2026-04-29  
-**Program:** AI+X Elite 20
-
----
-
-## X-Domain: My Field
-
-My X-domain is **Computer Science / Software Engineering**. I care about:
-- Understanding codebase architecture and design patterns
-- Writing clean, maintainable code
-- Automating repetitive development tasks (testing, documentation, debugging)
-- Building tools that solve real problems
-
-Without X, AI+X collapses into generic chat. My domain gives the AI leverage a specific direction.
+**姓名：** 刘婷婷  
+**日期：** 2026-04-29  
+**课程：** AI+X Elite 20
 
 ---
 
-## AI Axis: My Leverage
+## X 轴：我的领域
 
-### Three AI moves I can already do:
-1. **Prompt engineering for code tasks** — I can structure prompts with Role + Input + Output + Acceptance to get useful code summaries, drafts, and explanations.
-2. **Invoking pre-built Skills** — I can run Skills like `skill-dedup` to scan for duplicates and understand their SKILL.md structure.
-3. **Iterative refinement** — I know how to steer AI output with small adjustments rather than re-prompting from scratch.
+我的 X 领域是 **计算机科学 / 软件工程**。我关心的是：
+- 理解代码库架构和设计模式
+- 写出干净、可维护的代码
+- 自动化重复的开发工作（测试、文档、调试）
+- 构建能解决实际问题的工具
 
-### Three AI moves I want by Week 5:
-1. **Skill authoring** — I want to write my own SKILL.md for a task specific to my workflow (e.g., automated code review).
-2. **Multi-step workflow automation** — I want to chain multiple Skills together to handle a complex task end-to-end.
-3. **Codebase navigation with AI** — I want to use AI to quickly understand unfamiliar repositories and generate documentation.
+没有 X，AI+X 就沦为泛泛的聊天。我的领域给 AI 的杠杆力指明了具体方向。
 
 ---
 
-## S Axis: My Self
+## AI 轴：我的杠杆力
 
-### One way I'll notice myself growing:
-I'll know I'm growing when I can **look at a new codebase and use AI to generate accurate documentation in under 30 minutes** — something that currently takes me hours of manual tracing. The growth signal is: less time spent on "what does this do?" and more time on "how can I improve this?"
+### 我已经能做的 3 个 AI 操作：
+1. **针对代码任务的 prompt 工程** — 我能用 角色 + 输入 + 输出 + 验收 的结构来写出好的 prompt，拿到有用的代码总结、草稿和解释。
+2. **调用预置 Skill** — 我能运行像 `skill-dedup` 这样的 Skill 来扫描重复，也能读懂 SKILL.md 的结构。
+3. **迭代微调** — 我知道怎么用小的调整来引导 AI 输出，而不是从头重新 prompt。
 
-### K-S-T-A-R Replay:
-- **Before Week 1:** I didn't know what a Skill was or how to use K-S-T-A-R.
-- **After Week 1:** I've invoked a Skill, written prompt-traces, and completed a K-S-T-A-R worksheet.
-- **The loop:** Each R (Result) becomes new K (Knowledge), making the next cycle faster and more effective.
+### 我想在 Week 5 前学会的 3 个 AI 操作：
+1. **Skill 编写** — 我想给自己工作流中特定的任务写 SKILL.md（比如自动代码审查）。
+2. **多步骤工作流自动化** — 我想把多个 Skill 串起来，端到端地处理复杂任务。
+3. **用 AI 导航代码库** — 我想用 AI 快速理解不熟悉的仓库并生成文档。
 
 ---
 
-## The Diagonal
+## S 轴：我的自我
 
-The diagonal is the point — movement along all three axes at once:
-- **X** gets deeper as I apply AI to real CS problems
-- **AI** gets longer as I learn new Skills and workflows
-- **S** grows as I reflect on what works and what doesn't
+### 我会怎么注意到自己的成长：
+当我能**拿到一个新代码库，用 AI 在 30 分钟内生成准确的文档**时，我就知道自己在成长了——这件事目前需要我手动追踪好几个小时。成长的信号是：花在"这玩意是干嘛的"上的时间变少了，花在"我怎么改进它"上的时间变多了。
 
-That diagonal is what "Elite" means.
+### K-S-T-A-R 回放：
+- **Week 1 之前：** 我不知道 Skill 是什么，也不知道 K-S-T-A-R 怎么用。
+- **Week 1 之后：** 我调用过 Skill，写过 prompt 追踪，完成了 K-S-T-A-R 工作表。
+- **循环：** 每次 R（结果）变成新的 K（知识），让下一轮循环更快更有效。
+
+---
+
+## 对角线
+
+对角线才是重点——三个轴同时移动：
+- **X** 随着我把 AI 应用到真实的计算机问题而变深
+- **AI** 随着我学习新 Skill 和工作流而变长
+- **S** 随着我反思什么有效、什么无效而成长
+
+这个对角线就是"Elite"的含义。

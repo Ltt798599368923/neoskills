@@ -1,13 +1,13 @@
 # Hello Workshop!
 
-This file was created as part of the Day 2 environment smoke-test for AI+X Elite 20.
+这是 AI+X Elite 20 第二天环境冒烟测试的产物。
 
-> **Note**: This is a placeholder. Replace with Claude-generated content once network is restored.
+> **备注**：因为当时网络不好，Claude 打不开，所以先放了个占位文件。等网络恢复后会让 Claude 重新生成一份替换掉。
 
-## Smoke-Test Prompt Used:
+## 用的 Prompt：
 ```
-Create a hello.md file in my Elite20_workspace folder that says hello workshop
+在我的 Elite20_workspace 文件夹里创建一个 hello.md，里面写 hello workshop
 ```
 
-## What Surprised Me:
-_(To be filled after running the actual smoke-test with Claude)_
+## 让我意外的是：
+_（等用 Claude 跑完真正的冒烟测试后再补充）_

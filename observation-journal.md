@@ -1,51 +1,51 @@
-# Day 6: Vibe Coding Observation Journal
+# Day 6：Vibe Coding 观察日志
 
-## Demo Task
-Instructor demonstrated a full vibe-coding loop: converting a 10-page PDF into a 1-page memo.
+## 演示任务
+老师演示了一个完整的 vibe-coding 循环：把一份 10 页的 PDF 转成 1 页的备忘录。
 
-## Four Moves Observed
+## 观察到的四个步骤
 
-### 1. Intent
-The instructor started by clearly stating what they wanted: "Create a 1-page executive summary memo from this 10-page PDF, targeting a busy manager who needs the key takeaways."
+### 1. Intent（意图）
+老师一开始就明确说了要什么："把这份 10 页 PDF 转成 1 页的执行摘要备忘录，目标读者是没时间看完整报告的经理。"
 
-**Observation**: The intent was specific about output length (1 page), format (memo), and audience (busy manager). This gave the agent a clear direction from the start.
+**我的观察**：意图很具体——输出长度（1 页）、格式（备忘录）、受众（忙碌的经理）。这给 agent 从一开始就指明了方向。
 
-### 2. Ask
-The instructor didn't just paste the PDF and say "summarize." They structured the prompt with:
-- Role: "You are a business analyst"
-- Input: The PDF content
-- Output shape: "Use headings, 3-5 bullet points per section, include action items"
-- Acceptance: "A manager should be able to understand the core message in 2 minutes"
+### 2. Ask（提问）
+老师没有直接把 PDF 丢进去说"帮我总结一下"。她把 prompt 结构化成了：
+- 角色："你是一个商业分析师"
+- 输入：PDF 内容
+- 输出格式："用标题，每部分 3-5 个要点，包含行动项"
+- 验收标准："经理 2 分钟内能看懂核心信息"
 
-**Observation**: The pre-flight checklist (Role + Input + Output + Acceptance) was visible in how the prompt was constructed.
+**我的观察**：起飞前检查清单（角色 + 输入 + 输出 + 验收）在 prompt 的构建中清晰可见。
 
-### 3. Iterate
-When the first output was too long (1.5 pages), the instructor didn't re-prompt from scratch. They steered:
-- "Good, but cut the background section to 2 sentences max"
-- "Move the action items to the top"
-- "Use shorter bullet points"
+### 3. Iterate（迭代）
+第一次输出太长（1.5 页），老师没有从头重新 prompt，而是微调：
+- "不错，但背景部分最多留 2 句话"
+- "把行动项移到最上面"
+- "要点再简短一点"
 
-**Observation**: Each iteration was a small adjustment, not a complete rewrite. The instructor kept what worked and fixed what didn't.
+**我的观察**：每次迭代都是小调整，不是推倒重来。老师保留了做得好的部分，只改不好的地方。
 
-### 4. Verify
-The instructor checked the final output against the original acceptance criterion:
-- "Can a manager understand this in 2 minutes? Yes."
-- "Are the key takeaways clear? Yes."
-- "Is it 1 page? Yes."
+### 4. Verify（验证）
+老师拿着最终输出对照最初的验收标准逐条检查：
+- "经理 2 分钟能看懂吗？能。"
+- "核心信息清楚吗？清楚。"
+- "是 1 页吗？是。"
 
-**Observation**: Verification was explicit, not assumed. The instructor read through the output and compared it to the original intent.
+**我的观察**：验证是显式的，不是默认的。老师通读了输出，跟最初的意图做了对比。
 
-## Key Steering Moves
+## 关键的引导动作
 
-| Move | What Happened | Why It Matters |
-|------|---------------|----------------|
-| Setting constraints early | "1 page max" stated upfront | Prevents the agent from generating too much content |
-| Iterative refinement | Small adjustments, not full re-prompts | Saves tokens and builds on what works |
-| Explicit verification | Checked against acceptance criteria | Ensures the output actually meets the goal |
-| Audience awareness | "Busy manager" mentioned in prompt | Shapes the tone and detail level |
+| 动作 | 做了什么 | 为什么重要 |
+|------|---------|-----------|
+| 提前设约束 | 一开始就说"最多 1 页" | 防止 agent 生成太多内容 |
+| 迭代微调 | 小调整，不是重新 prompt | 省 token，在已有基础上改进 |
+| 显式验证 | 对照验收标准检查 | 确保输出真的达到了目标 |
+| 考虑受众 | prompt 里提到"忙碌的经理" | 决定了语气和详细程度 |
 
-## What Surprised Me
-The instructor didn't treat the agent as an oracle that gets it right on the first try. Instead, they treated it like a junior colleague — give clear instructions, review the work, give feedback, and iterate. The "vibe" comes from knowing when to steer and when to let the agent run.
+## 让我意外的是
+老师没有把 agent 当成一次就能说对的神谕。而是把它当成一个初级同事——给清楚指令，检查工作，给反馈，再迭代。所谓的"vibe"就是知道什么时候该引导，什么时候让 agent 自己跑。
 
-## One Thing I Noticed Most
-**The instructor always had a written acceptance criterion before starting Action.** This prevented scope creep and made verification objective rather than subjective.
+## 我印象最深的一点
+**老师在开始行动之前，总是先把验收标准写下来。** 这防止了范围蔓延，也让验证变成了客观的而不是主观的。
